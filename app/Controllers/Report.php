@@ -21,6 +21,8 @@ class Report extends BaseController
         $data = [
             'title' => 'User | Main Dashboard',
             'meeting' => $this->M_Meeting->findAll(),
+            'case' => $this->M_Case->findAll(),
+            'divisi' => $this->M_Divisi->findAll(),
             'validation' => \Config\Services::validation()
         ];
 

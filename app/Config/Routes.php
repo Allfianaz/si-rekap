@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/superadmin', 'Home::loginSuperAdmin');
 $routes->get('/superadmin/dashboard', 'Administrator::dashboardSuper',['filter' => 'authsuper']);
+$routes->get('/superadmin/manage', 'Administrator::manageAcc',['filter' => 'authsuper']);
 $routes->get('/superadmin', 'Auth::logoutSuperAdmin');
 $routes->get('/superadmin/addAdmin', 'Administrator::addAdmin');
 $routes->get('/superadmin/addUser', 'Administrator::addUser');

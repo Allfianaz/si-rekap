@@ -6,6 +6,7 @@
         <div class="title_left">
             <h3>Administrator</h3>
         </div>
+        <div class="swal" data-swal="<?= session()->get('message'); ?>"></div>
 
         <div class="title_right">
             <div class="col-md-2 form-group pull-right top_search">

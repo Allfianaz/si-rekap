@@ -28,6 +28,18 @@ class Administrator extends BaseController
         return view('superadmin/dashboard', $data);
     }
 
+    public function manageAcc()
+    {
+        $data = [
+            'title' => 'Super Admin | Manage Accounts',
+            'admin' => $this->AdminModel->findAll(),
+            'user' => $this->UserModel->findAll(),
+            'validation' => \Config\Services::validation()
+        ];
+        // dd($data);
+        return view('superadmin/manage', $data);
+    }
+
     public function dashboardAdmin()
     {
 
@@ -103,7 +115,7 @@ class Administrator extends BaseController
         session()->setFlashData('message', 'Data Successfully added to Administrator');
 
         $this->AdminModel->saveAdmin($data);
-        return redirect()->to('/superadmin/dashboard');
+        return redirect()->to('/superadmin/addAdmin');
     }
 
     public function saveUser()
@@ -172,7 +184,7 @@ class Administrator extends BaseController
         session()->setFlashData('message', 'Data Successfully added to User');
 
         $this->UserModel->saveUser($data);
-        return redirect()->to('/superadmin/dashboard');
+        return redirect()->to('/superadmin/addUser');
     }
 
     public function addAdmin()
@@ -223,7 +235,7 @@ class Administrator extends BaseController
         $this->AdminModel->delete($id);
 
         session()->setFlashData('message', 'Data Succesfully deleted');
-        return redirect()->to('/superadmin/dashboard');
+        return redirect()->to('/superadmin/manage');
     }
 
     public function deleteUser($id)
@@ -236,7 +248,7 @@ class Administrator extends BaseController
         $this->UserModel->delete($id);
 
         session()->setFlashData('message', 'Data Succesfully deleted');
-        return redirect()->to('/superadmin/dashboard');
+        return redirect()->to('/superadmin/manage');
     }
 
     public function editAdmin($id)
@@ -335,7 +347,7 @@ class Administrator extends BaseController
 
         // $this->AdminModel->saveAdmin($data);
         $this->AdminModel->updateAdmin($data, $id);
-        return redirect()->to('/superadmin/dashboard');
+        return redirect()->to('/superadmin/manage');
     }
 
     public function updateUser($id)
@@ -407,7 +419,7 @@ class Administrator extends BaseController
         session()->setFlashData('message', 'Data Successfully Changed');
 
         $this->UserModel->updateUser($data, $id);
-        return redirect()->to('/superadmin/dashboard');
+        return redirect()->to('/superadmin/manage');
     }
 
     public function changePasswordAdmin($id)
@@ -454,7 +466,7 @@ class Administrator extends BaseController
         session()->setFlashData('message', 'Password Successfully Changed');
 
         $this->AdminModel->updateAdmin($data, $id);
-        return redirect()->to('/superadmin/dashboard');
+        return redirect()->to('/superadmin/manage');
     }
 
     public function changePasswordUser($id)
@@ -501,7 +513,7 @@ class Administrator extends BaseController
         session()->setFlashData('message', 'Password Successfully Changed');
 
         $this->UserModel->updateUser($data, $id);
-        return redirect()->to('/superadmin/dashboard');
+        return redirect()->to('/superadmin/manage');
     }
 
 }

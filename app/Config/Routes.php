@@ -49,6 +49,8 @@ $routes->get('/user/report/case','Report::case/index', ['filter' => 'authuser'])
 $routes->get('/user/report/case/save', 'Report::case/save', ['filter' => 'authuser']);
 $routes->get('/user/report/case/edit/(:segment)', 'Report::case/edit/$1', ['filter' => 'authuser']);
 $routes->get('/user/report/case/detail/(:any)', 'Report::case/detail/$1', ['filter' => 'authuser']);
+$routes->get('/user/report/personelsCategory', 'Report::personelsCategory/index', ['filter' => 'authuser']);
+$routes->get('/user/report/personelsCategory/edit/(:segment)', 'Report::personelsCategory/edit/$1', ['filter' => 'authuser']);
 /**
  * --------------------------------------------------------------------
  * Additional Routing

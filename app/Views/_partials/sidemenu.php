@@ -48,8 +48,13 @@
             <li class="<?= $request->uri->getSegment(2) == 'dashboard' ? 'active' : '' ?>"><a href="/user/dashboard"><i class="fa fa-home"></i>Dashboard</a>
             <li class="<?= $request->uri->getSegment(3) == 'meeting' || $request->uri->getSegment(3) == 'case' ? 'active' : '' ?>"><a><i class="fa fa-file-text"></i>Data Reports<span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li class="<?= $request->uri->getSegment(2) == 'report' && $request->uri->getSegment(3) == 'meeting' ? 'current-page' : '' ?>"><a href="/user/report/meeting">Meeting</a></li>
-                <li class="<?= $request->uri->getSegment(2) == 'report' && $request->uri->getSegment(3) == 'case' ? 'current-page' : '' ?>"><a href="/user/report/case">Cases & Violence</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'meeting' ? 'current-page' : '' ?>"><a href="/user/report/meeting">Meeting</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'case' ? 'current-page' : '' ?>"><a href="/user/report/case">Cases & Violence</a></li>
+              </ul>
+            </li>
+            <li class="<?= $request->uri->getSegment(3) == 'personelsCategory' ? 'active' : '' ?>"><a><i class="fa fa-file-text"></i>Licensing<span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li class="<?= $request->uri->getSegment(3) == 'personelsCategory' ? 'current-page' : '' ?>"><a href="/user/report/personelsCategory">Personels Category</a></li>
               </ul>
             </li>
           </ul>

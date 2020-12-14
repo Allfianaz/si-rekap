@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\M_Meeting;
 use App\Models\M_Case;
 use App\Models\M_Divisi;
+use App\Models\M_JenisPersonil;
+use App\Models\M_Perizinan;
 
 class Report extends BaseController
 {
@@ -13,6 +15,8 @@ class Report extends BaseController
         $this->M_Meeting = new M_Meeting();
         $this->M_Case = new M_Case();
         $this->M_Divisi = new M_Divisi();
+        $this->M_JenisPersonil = new M_JenisPersonil();
+        $this->M_Perizinan = new M_Perizinan();
         helper('url', 'form');
     }
 
@@ -385,6 +389,97 @@ class Report extends BaseController
                 'report' => $this->M_Case->getData($id)
             ];
             return view('user/case/detail', $data);
+        }
+    }
+
+    public function personelsCategory($url = 'index', $id = null)
+    {
+        // CATEGORY, MAIN DASHBOARD
+        if($url == 'index'){
+            $data = [
+                'title' => 'Personels Category',
+                'category' => $this->M_JenisPersonil->getData(),
+                'validation' => \Config\Services::validation()
+            ];
+
+            return view('user/personels_category/dashboard', $data);
+
+            // CATEGORY, SAVE DATA
+        } elseif ($url == 'save') {
+            if(!$this->validate([
+                'name' => [
+                    'rules' => 'required',
+                    'required' => 'Please input Category is name'
+                ],
+                'keterangan' => [
+                    'rules' => 'required|max_length[100]',
+                    'errors' => [
+                        'required' => 'Please input the Description',
+                        'max_length' => 'Max length is 100 characters for descri'
+                    ]
+                ]
+            ])){
+                return redirect()->to('/user/report/personelsCategory')->withInput();
+            }
+
+            $data = array(
+                'id_jenis_personil' => rand(111111111, 999999999),
+                'jenis_personil' => $this->request->getVar('name'),
+                'keterangan_jenis' => $this->request->getVar('keterangan')
+            );
+            // dd($data);
+
+            session()->setFlashdata('message', 'Data Successfully added to Personels Category');
+
+            $this->M_JenisPersonil->saveData($data);
+            return redirect()->to('/user/report/personelsCategory');
+
+            // CATEGORY, DELETE DATA
+        } elseif ($url == 'delete' && $id != null) {
+            $this->M_JenisPersonil->delete($id);
+
+            session()->setFlashdata('message', 'Data Successfully Deleted');
+            return redirect()->to('/user/report/personelsCategory');
+
+            // CATEGORY, EDIT DATA
+        } elseif ($url == 'edit' && $id != null){
+            $data = [
+                'title' => 'Personels Category | Edit Data',
+                'validation' => \Config\Services::validation(),
+                'category' => $this->M_JenisPersonil->getData($id)
+            ];
+            // dd($data);
+
+            return view('user/personels_category/edit', $data);
+
+            // CATEGORY, UPDATE DATA
+        } elseif ($url == 'update' && $id != null){
+            if(!$this->validate([
+                'name' => [
+                    'rules' => 'required',
+                    'required' => 'Please input Category is name'
+                ],
+                'keterangan' => [
+                    'rules' => 'required|max_length[100]',
+                    'errors' => [
+                        'required' => 'Please input the Description',
+                        'max_length' => 'Max length is 100 characters for descri'
+                    ]
+                ]
+            ])){
+                return redirect()->to('/user/report/personelsCategory/' . $id)->withInput();
+            }
+
+            $data = array(
+                'jenis_personil' => $this->request->getVar('name'),
+                'keterangan_jenis' => $this->request->getVar('keterangan')
+            );
+            // dd($data);
+
+            session()->setFlashdata('message', 'Data Successfully added to Personels Category');
+
+            $this->M_JenisPersonil->updateData($data, $id);
+            return redirect()->to('/user/report/personelsCategory');
         }
     }
 }

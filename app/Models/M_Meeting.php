@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -11,8 +12,7 @@ class M_Meeting extends Model
 
     public function getData($id = false)
     {
-        if($id === false)
-        {
+        if ($id === false) {
             return $this->orderBy('tanggal_meeting', 'ASC')->findAll();
         } else {
             return $this->where(['id_meeting' => $id])->first();

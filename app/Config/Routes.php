@@ -37,8 +37,8 @@ $routes->get('/superadmin/manage', 'Administrator::manageAcc',['filter' => 'auth
 $routes->get('/superadmin', 'Auth::logoutSuperAdmin');
 $routes->get('/superadmin/addAdmin', 'Administrator::addAdmin');
 $routes->get('/superadmin/addUser', 'Administrator::addUser');
-$routes->get('/superadmin/editAdmin/(:any)', 'Administrator::editAdmin/$1');
-$routes->get('/superadmin/editUser/(:any)', 'Administrator::editUser/$1');
+$routes->get('/superadmin/manage/editAdmin/(:any)', 'Administrator::editAdmin/$1');
+$routes->get('/superadmin/manage/editUser/(:any)', 'Administrator::editUser/$1');
 $routes->get('/admin/dashboard', 'Administrator::dashboardAdmin', ['filter' => 'authadmin']);
 $routes->get('/user/dashboard', 'Report::index', ['filter' => 'authuser']);
 $routes->get('/login', 'Home::login');
@@ -48,6 +48,7 @@ $routes->get('/user/report/meeting', 'Report::meeting/index', ['filter' => 'auth
 $routes->get('/user/report/case','Report::case/index', ['filter' => 'authuser']);
 $routes->get('/user/report/case/save', 'Report::case/save', ['filter' => 'authuser']);
 $routes->get('/user/report/case/edit/(:segment)', 'Report::case/edit/$1', ['filter' => 'authuser']);
+$routes->get('/user/report/case/detail/(:any)', 'Report::case/detail/$1', ['filter' => 'authuser']);
 /**
  * --------------------------------------------------------------------
  * Additional Routing

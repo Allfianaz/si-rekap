@@ -102,7 +102,7 @@
                 <div class="field item form-group">
                     <label class="col-form-label col-md-3 col-sm-3  label-align">Date<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">
-                        <input class="form-control date <?= ($validation->hasError('tanggal')) ? 'is-invalid' : ''; ?>" type="date" name="tanggal" />
+                        <input class="form-control date <?= ($validation->hasError('tanggal')) ? 'is-invalid' : ''; ?>" type="date" name="tanggal" value="<?= old('tanggal') ?>" />
                         <div class="invalid-feedback position-sticky">
                             <?= $validation->getError('tanggal'); ?>
                         </div>
@@ -111,7 +111,7 @@
                 <div class="field item form-group">
                     <label class="col-form-label col-md-3 col-sm-3  label-align">Start<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">
-                        <input class="form-control time <?= ($validation->hasError('start')) ? 'is-invalid' : ''; ?>" type="time" name="start" />
+                        <input class="form-control time <?= ($validation->hasError('start')) ? 'is-invalid' : ''; ?>" type="time" name="start" value="<?= old('start') ?>" />
                         <div class="invalid-feedback position-sticky">
                             <?= $validation->getError('start'); ?>
                         </div>
@@ -120,7 +120,7 @@
                 <div class="field item form-group">
                     <label class="col-form-label col-md-3 col-sm-3  label-align">End<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">
-                        <input class="form-control time <?= ($validation->hasError('end')) ? 'is-invalid' : ''; ?>" type="time" name="end" />
+                        <input class="form-control time <?= ($validation->hasError('end')) ? 'is-invalid' : ''; ?>" type="time" name="end" value="<?= old('end') ?>" />
                         <div class="invalid-feedback position-sticky">
                             <?= $validation->getError('end'); ?>
                         </div>

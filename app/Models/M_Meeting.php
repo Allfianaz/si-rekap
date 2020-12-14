@@ -13,7 +13,7 @@ class M_Meeting extends Model
     {
         if($id === false)
         {
-            return $this->findAll();
+            return $this->orderBy('tanggal_meeting', 'ASC')->findAll();
         } else {
             return $this->where(['id_meeting' => $id])->first();
         }

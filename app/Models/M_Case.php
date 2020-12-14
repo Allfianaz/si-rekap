@@ -12,7 +12,7 @@ class M_Case extends Model
     public function getData($id = false)
     {
         if($id === false){
-            return $this->findAll();
+            return $this->orderBy('tanggal_pelanggaran', 'ASC')->findAll();
         } else {
             return $this->where(['id_pelanggaran' => $id])->first();
         }

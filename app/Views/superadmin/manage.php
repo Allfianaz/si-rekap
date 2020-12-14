@@ -33,10 +33,10 @@
               <div class="media-body">
                 <p>NIP : <a class="title" href="#"><?= $adm['nip_admin'] ?></a>
                   <div class="float-right">
-                    <a href="/superadmin/editAdmin/<?= $adm['id_admin']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
+                    <a href="/superadmin/manage/editAdmin/<?= $adm['id_admin']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
                     <!-- <form action="/administrator/deleteAdmin/<?= $adm['id_admin']; ?>" method="post" class="d-inline btn-delete"> -->
                     <?= csrf_field(); ?>
-                    <a href="/administrator/deleteAdmin/<?= $adm['id_admin']; ?>" class="btn btn-danger btn-sm fa fa-trash btn-delete" type="submit"></a>
+                    <a href="/administrator/manage/deleteAdmin/<?= $adm['id_admin']; ?>" class="btn btn-danger btn-sm fa fa-trash btn-delete" type="submit"></a>
                     <!-- </form> -->
                   </div>
                 </p>
@@ -78,9 +78,9 @@
               <div class="media-body">
                 <p>NIP : <a class="title" href="#"><?= $usr['nip_user'] ?></a>
                   <div class="float-right">
-                    <a href="/superadmin/editUser/<?= $usr['id_user']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
+                    <a href="/superadmin/manage/editUser/<?= $usr['id_user']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
                     <?= csrf_field(); ?>
-                    <a href="/administrator/deleteUser/<?= $usr['id_user']; ?>" class="btn btn-danger btn-sm fa fa-trash btn-delete" type="submit"></a>
+                    <a href="/administrator/manage/deleteUser/<?= $usr['id_user']; ?>" class="btn btn-danger btn-sm fa fa-trash btn-delete" type="submit"></a>
                   </div>
                 </p>
                 <p>NAME : <?= $usr['name_user'] ?></p>

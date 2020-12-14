@@ -78,7 +78,7 @@
                                                                     echo 'badge-success';
                                                                 } ?>"><?= $cs['status']; ?></span>
                                 </td>
-                                <td class=" last"><a href="/report/case/detail/<?= $cs['id_pelanggaran']; ?>">Detail</a>
+                                <td class=" last"><a href="/user/report/case/detail/<?= $cs['id_pelanggaran']; ?>">Detail</a>
                                 </td>
                                 <td>
                                     <div class="">

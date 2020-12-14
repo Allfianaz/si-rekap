@@ -20,9 +20,9 @@ class Report extends BaseController
     {
         $data = [
             'title' => 'User | Main Dashboard',
-            'meeting' => $this->M_Meeting->findAll(),
-            'case' => $this->M_Case->findAll(),
-            'divisi' => $this->M_Divisi->findAll(),
+            'meeting' => $this->M_Meeting->getData(),
+            'case' => $this->M_Case->getData(),
+            'divisi' => $this->M_Divisi->getData(),
             'validation' => \Config\Services::validation()
         ];
 
@@ -211,7 +211,7 @@ class Report extends BaseController
         } elseif ($url == 'index' && $id == null) {
             $data = [
                 'title' => 'Report Meeting | Main Dashboard',
-                'meeting' => $this->M_Meeting->findAll(),
+                'meeting' => $this->M_Meeting->getData(),
                 'validation' => \Config\Services::validation()
             ];
 

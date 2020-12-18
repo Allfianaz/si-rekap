@@ -52,9 +52,12 @@
                 <li class="<?= $request->uri->getSegment(3) == 'case' ? 'current-page' : '' ?>"><a href="/user/report/case">Cases & Violence</a></li>
               </ul>
             </li>
-            <li class="<?= $request->uri->getSegment(3) == 'personelsCategory' ? 'active' : '' ?>"><a><i class="fa fa-file-text"></i>Licensing<span class="fa fa-chevron-down"></span></a>
+            <li class="<?= $request->uri->getSegment(2) == 'perizinan' ? 'active' : '' ?>"><a><i class="fa fa-file-text"></i>Perizinan<span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li class="<?= $request->uri->getSegment(3) == 'personelsCategory' ? 'current-page' : '' ?>"><a href="/user/report/personelsCategory">Personels Category</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'personelsCategory' ? 'current-page' : '' ?>"><a href="/user/licensing/personelsCategory">Personels Category</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'izinKeluar' ? 'current-page' : '' ?>"><a href="/user/perizinan/izinKeluar">Izin Keluar</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'izinPulang' ? 'current-page' : '' ?>"><a href="/user/perizinan/izinPulang">Izin Pulang</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'personilTerlambat' ? 'current-page' : '' ?>"><a href="/user/perizinan/personilTerlambat">Personil Terlambat</a></li>
               </ul>
             </li>
           </ul>

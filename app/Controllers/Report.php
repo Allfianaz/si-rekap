@@ -6,7 +6,7 @@ use App\Models\M_Meeting;
 use App\Models\M_Case;
 use App\Models\M_Divisi;
 use App\Models\M_JenisPersonil;
-use App\Models\M_Perizinan;
+use App\Models\M_IzinKeluar;
 
 class Report extends BaseController
 {
@@ -16,7 +16,7 @@ class Report extends BaseController
         $this->M_Case = new M_Case();
         $this->M_Divisi = new M_Divisi();
         $this->M_JenisPersonil = new M_JenisPersonil();
-        $this->M_Perizinan = new M_Perizinan();
+        $this->M_IzinKeluar = new M_IzinKeluar();
         helper('url', 'form');
     }
 
@@ -223,17 +223,20 @@ class Report extends BaseController
         }
     }
 
-    public function case($url = 'index', $id = null)
+    public function
+    case($url = 'index', $id = null)
     {
         // CASE DASHBOARD 
         if ($url == 'index') {
             $divisi = $this->M_Divisi->findAll();
             $case = $this->M_Case->findAll();
+            $status = $this->M_JenisPersonil->findAll();
 
             $data = [
                 'title' => 'Case Report | Main Dashboard',
                 'case' => $case,
                 'divisi' => $divisi,
+                'status' => $status,
                 'validation' => \Config\Services::validation()
             ];
 
@@ -273,6 +276,12 @@ class Report extends BaseController
                         'required' => 'Please set case status'
                     ]
                 ],
+                'status_karyawan' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please set the employment status'
+                    ]
+                ],
                 'keterangan' => [
                     'rules' => 'required',
                     'errors' => [
@@ -288,6 +297,7 @@ class Report extends BaseController
             $data = array(
                 'id_pelanggaran' => 'Cse' . date('dmY') . rand(111, 999),
                 'nama_pelanggar' => $this->request->getVar('name'),
+                'status_kepegawaian' => $this->request->getVar('status_karyawan'),
                 'nip_pelanggar' => $this->request->getVar('nip'),
                 'jk_pelanggar' => $this->request->getVar('kelamin'),
                 'tanggal_pelanggaran' => $this->request->getVar('tanggal'),
@@ -303,7 +313,7 @@ class Report extends BaseController
             return redirect()->to('/user/report/case');
 
             // CASE, DELETE DATA
-        } elseif ($url == 'delete' && $id != null){
+        } elseif ($url == 'delete' && $id != null) {
             $this->M_Case->delete($id);
 
             session()->setFlashdata('message', 'Data Successfully Deleted');
@@ -315,6 +325,7 @@ class Report extends BaseController
                 'title' => 'Case Report | Edit Data',
                 'validation' => \Config\Services::validation(),
                 'divisi' => $this->M_Divisi->findAll(),
+                'status' => $this->M_JenisPersonil->findAll(),
                 'case' => $this->M_Case->getData($id),
             ];
             // dd($data);
@@ -355,6 +366,12 @@ class Report extends BaseController
                         'required' => 'Please set case status'
                     ]
                 ],
+                'status_karyawan' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please set the employment status'
+                    ]
+                ],
                 'keterangan' => [
                     'rules' => 'required',
                     'errors' => [
@@ -370,6 +387,7 @@ class Report extends BaseController
 
             $data = array(
                 'nama_pelanggar' => $this->request->getVar('name'),
+                'status_kepegawaian' => $this->request->getVar('status_karyawan'),
                 'nip_pelanggar' => $this->request->getVar('nip'),
                 'jk_pelanggar' => $this->request->getVar('kelamin'),
                 'tanggal_pelanggaran' => $this->request->getVar('tanggal'),
@@ -395,9 +413,9 @@ class Report extends BaseController
     public function personelsCategory($url = 'index', $id = null)
     {
         // CATEGORY, MAIN DASHBOARD
-        if($url == 'index'){
+        if ($url == 'index') {
             $data = [
-                'title' => 'Personels Category',
+                'title' => 'Licensing | Personels Category',
                 'category' => $this->M_JenisPersonil->getData(),
                 'validation' => \Config\Services::validation()
             ];
@@ -406,7 +424,7 @@ class Report extends BaseController
 
             // CATEGORY, SAVE DATA
         } elseif ($url == 'save') {
-            if(!$this->validate([
+            if (!$this->validate([
                 'name' => [
                     'rules' => 'required',
                     'required' => 'Please input Category is name'
@@ -418,8 +436,8 @@ class Report extends BaseController
                         'max_length' => 'Max length is 100 characters for descri'
                     ]
                 ]
-            ])){
-                return redirect()->to('/user/report/personelsCategory')->withInput();
+            ])) {
+                return redirect()->to('/user/licensing/personelsCategory')->withInput();
             }
 
             $data = array(
@@ -432,17 +450,17 @@ class Report extends BaseController
             session()->setFlashdata('message', 'Data Successfully added to Personels Category');
 
             $this->M_JenisPersonil->saveData($data);
-            return redirect()->to('/user/report/personelsCategory');
+            return redirect()->to('/user/licensing/personelsCategory');
 
             // CATEGORY, DELETE DATA
         } elseif ($url == 'delete' && $id != null) {
             $this->M_JenisPersonil->delete($id);
 
             session()->setFlashdata('message', 'Data Successfully Deleted');
-            return redirect()->to('/user/report/personelsCategory');
+            return redirect()->to('/user/licensing/personelsCategory');
 
             // CATEGORY, EDIT DATA
-        } elseif ($url == 'edit' && $id != null){
+        } elseif ($url == 'edit' && $id != null) {
             $data = [
                 'title' => 'Personels Category | Edit Data',
                 'validation' => \Config\Services::validation(),
@@ -453,8 +471,8 @@ class Report extends BaseController
             return view('user/personels_category/edit', $data);
 
             // CATEGORY, UPDATE DATA
-        } elseif ($url == 'update' && $id != null){
-            if(!$this->validate([
+        } elseif ($url == 'update' && $id != null) {
+            if (!$this->validate([
                 'name' => [
                     'rules' => 'required',
                     'required' => 'Please input Category is name'
@@ -466,8 +484,8 @@ class Report extends BaseController
                         'max_length' => 'Max length is 100 characters for descri'
                     ]
                 ]
-            ])){
-                return redirect()->to('/user/report/personelsCategory/' . $id)->withInput();
+            ])) {
+                return redirect()->to('/user/licensing/personelsCategory/' . $id)->withInput();
             }
 
             $data = array(
@@ -479,7 +497,7 @@ class Report extends BaseController
             session()->setFlashdata('message', 'Data Successfully added to Personels Category');
 
             $this->M_JenisPersonil->updateData($data, $id);
-            return redirect()->to('/user/report/personelsCategory');
+            return redirect()->to('/user/licensing/personelsCategory');
         }
     }
 }

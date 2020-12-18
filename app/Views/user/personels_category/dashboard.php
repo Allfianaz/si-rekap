@@ -71,7 +71,7 @@
                                 <td class=" "><h3><strong><?= $ctg['keterangan_jenis']; ?></strong></h3></td>
                                 <td>
                                     <div class="">
-                                        <a href="/user/report/personelsCategory/edit/<?= $ctg['id_jenis_personil']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
+                                        <a href="/user/licensing/personelsCategory/edit/<?= $ctg['id_jenis_personil']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
 
                                         <a href="/report/personelsCategory/delete/<?= $ctg['id_jenis_personil']; ?>" class="btn btn-danger btn-sm fa fa-trash btn-delete" type="submit"></a>
                                     </div>

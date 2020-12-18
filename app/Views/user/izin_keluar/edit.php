@@ -6,13 +6,13 @@
     <div class="swal" data-swal="<?= session()->get('message'); ?>"></div>
     <div class="page-title">
         <div class="title_left">
-            <h3>Edit Meeting Report</h3>
+            <h3><?= $header ?></h3>
         </div>
 
         <div class="title_right">
             <div class="col-m form-group pull-right">
                 <div class="input-group">
-                    <a href="/user/report/case" class="btn btn-warning float-right"><i class="fa fa-backward"></i> Back</a>
+                    <a href="/user/perizinan/izinKeluar" class="btn btn-warning float-right"><i class="fa fa-backward"></i> Back</a>
                     <span class="input-group-btn">
                         <!-- <button class="btn btn-default" type="button">Go!</button> -->
                     </span>
@@ -26,7 +26,7 @@
         <div class="col-md-12 col-sm-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Meeting <small>Edit Data</small></h2>
+                    <h2><?= $header ?> <small>Edit Data</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -39,11 +39,11 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form class="" action="/report/case/update/<?= $case['id_pelanggaran']; ?>" method="post">
+                    <form class="" action="/perizinan/izinKeluar/update/<?= $licensing['id_perizinan']; ?>" method="post" enctype="multipart/form-data">
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3  label-align">Date<span class="required">*</span></label>
+                            <label class="col-form-label col-md-3 col-sm-3  label-align">Tanggal<span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6">
-                                <input class="form-control date <?= ($validation->hasError('tanggal')) ? 'is-invalid' : ''; ?>" value="<?= $case['tanggal_pelanggaran'] ?>" type="date" name="tanggal" />
+                                <input class="form-control date <?= ($validation->hasError('tanggal')) ? 'is-invalid' : ''; ?>" type="date" name="tanggal" value="<?= $licensing['tanggal_izin'] ?>" />
                                 <div class="invalid-feedback position-sticky">
                                     <?= $validation->getError('tanggal'); ?>
                                 </div>
@@ -52,58 +52,26 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align">NIP<span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6">
-                                <input class="form-control time <?= ($validation->hasError('nip')) ? 'is-invalid' : ''; ?>" value="<?= $case['nip_pelanggar'] ?>" type="text" name="nip" data-inputmask="'mask': '999-99-99999'" />
+                                <input class="form-control time <?= ($validation->hasError('nip')) ? 'is-invalid' : ''; ?>" type="text" name="nip" data-inputmask="'mask': '999-99-99999'" value="<?= $licensing['nip_personil']; ?>" />
                                 <div class="invalid-feedback position-sticky">
                                     <?= $validation->getError('nip'); ?>
                                 </div>
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3  label-align">Name<span class="required">*</span></label>
+                            <label class="col-form-label col-md-3 col-sm-3  label-align">Nama<span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6">
-                                <input class="form-control <?= ($validation->hasError('name')) ? 'is-invalid' : ''; ?>" value="<?= $case['nama_pelanggar'] ?>" type="text" name="name" />
+                                <input class="form-control <?= ($validation->hasError('nama')) ? 'is-invalid' : ''; ?>" type="text" name="nama" value="<?= $licensing['nama_personil_izin']; ?>" />
                                 <div class="invalid-feedback position-sticky">
-                                    <?= $validation->getError('name'); ?>
+                                    <?= $validation->getError('nama'); ?>
                                 </div>
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align">Employment Status<span class="required">*</span></label>
-                            <div class="col-md-6 col-sm-6">
-                                <select class="form-control <?= ($validation->hasError('status_karyawan')) ? 'is-invalid' : ''; ?>" name="status_karyawan">
-                                    <option><?= $case['status_kepegawaian']; ?></option>
-                                    <?php foreach ($status as $st) { ?>
-                                        <option value="<?php echo $st['jenis_personil']; ?>"><?php echo $st['jenis_personil']; ?></option>
-                                    <?php } ?>
-                                </select>
-                                <div class="invalid-feedback position-sticky">
-                                    <?= $validation->getError('status_karyawan'); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3  label-align">Gender<span class="required">*</span></label>
-                            <div class="col-md-6 col-sm-6">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" value="Male" id="optionsRadios1" name="kelamin" <?= $case['jk_pelanggar'] == 'Male' ? 'checked' : '' ?>> Male
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" value="Female" id="optionsRadios2" name="kelamin" <?= $case['jk_pelanggar'] == 'Female' ? 'checked' : '' ?>> Female
-                                    </label>
-                                </div>
-                                <div class="invalid-feedback position-sticky">
-                                    <?= $validation->getError('kelamin'); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align">Work Division<span class="required">*</span></label>
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Divisi<span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6">
                                 <select class="form-control <?= ($validation->hasError('divisi')) ? 'is-invalid' : ''; ?>" name="divisi">
-                                    <option><?= $case['divisi_pelanggar']; ?></option>
+                                    <option><b><?= $licensing['divisi_personil']; ?></b></option>
                                     <?php foreach ($divisi as $div) { ?>
                                         <option value="<?php echo $div['nama_divisi']; ?>"><?php echo $div['nama_divisi']; ?></option>
                                     <?php } ?>
@@ -114,23 +82,41 @@
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3  label-align">Status<span class="required">*</span></label>
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Status Pegwawai<span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6">
-                                <select class="form-control <?= ($validation->hasError('status')) ? 'is-invalid' : ''; ?>" name="status">
-                                    <option><?= $case['status']; ?></option>
-                                    <option value="Berat">Berat</option>
-                                    <option value="Sedang">Sedang</option>
-                                    <option value="Ringan">Ringan</option>
+                                <select class="form-control <?= ($validation->hasError('status_karyawan')) ? 'is-invalid' : ''; ?>" name="status_karyawan">
+                                    <option><b><?= $licensing['jenis_personil'];     ?></b></option>
+                                    <?php foreach ($status as $st) { ?>
+                                        <option value="<?php echo $st['jenis_personil']; ?>"><?php echo $st['jenis_personil']; ?></option>
+                                    <?php } ?>
                                 </select>
                                 <div class="invalid-feedback position-sticky">
-                                    <?= $validation->getError('status'); ?>
+                                    <?= $validation->getError('status_karyawan'); ?>
                                 </div>
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align">Case Detail<span class="required">*</span></label>
+                            <label class="col-form-label col-md-3 col-sm-3  label-align">Jam Keluar<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control time <?= ($validation->hasError('jam_keluar')) ? 'is-invalid' : ''; ?>" type="time" name="jam_keluar" value="<?= $licensing['jam_keluar']; ?>" />
+                                <div class="invalid-feedback position-sticky">
+                                    <?= $validation->getError('jam_keluar'); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align">Jam Masuk<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control time <?= ($validation->hasError('jam_masuk')) ? 'is-invalid' : ''; ?>" type="time" name="jam_masuk" value="<?= $licensing['jam_masuk']; ?>" />
+                                <div class="invalid-feedback position-sticky">
+                                    <?= $validation->getError('jam_masuk'); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Keterangan<span class="required">*</span></label>
                             <div class="col-md-9 col-sm-9">
-                                <textarea name="keterangan" id="keterangan" cols="30" rows="10"><?= $case['keterangan_pelanggaran']; ?></textarea>
+                                <textarea name="keterangan" id="materi" cols="30" rows="10"><?= $licensing['keterangan_izin']; ?></textarea>
                                 <div class="invalid-feedback position-sticky">
                                     <?= $validation->getError('keterangan'); ?>
                                 </div>
@@ -140,6 +126,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 offset-md-3">
                                     <button type='submit' class="btn btn-primary">Submit</button>
+                                    <button type='reset' class="btn btn-success">Reset</button>
                                 </div>
                             </div>
                         </div>
@@ -150,11 +137,8 @@
     </div>
 </div>
 
-<script>
-    CKEDITOR.replace('keterangan', {
-        width: '100%',
-        height: 400
-    });
-</script>
+<!-- <script>
+    CKEDITOR.replace('materi');
+</script> -->
 
 <?= $this->endSection() ?>

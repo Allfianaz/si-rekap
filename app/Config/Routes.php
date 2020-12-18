@@ -30,7 +30,12 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+// HOMEPAGE
 $routes->get('/', 'Home::index');
+$routes->get('/login', 'Home::login');
+
+// SUPERADMIN
 $routes->get('/superadmin', 'Home::loginSuperAdmin');
 $routes->get('/superadmin/dashboard', 'Administrator::dashboardSuper',['filter' => 'authsuper']);
 $routes->get('/superadmin/manage', 'Administrator::manageAcc',['filter' => 'authsuper']);
@@ -39,9 +44,12 @@ $routes->get('/superadmin/addAdmin', 'Administrator::addAdmin');
 $routes->get('/superadmin/addUser', 'Administrator::addUser');
 $routes->get('/superadmin/manage/editAdmin/(:any)', 'Administrator::editAdmin/$1');
 $routes->get('/superadmin/manage/editUser/(:any)', 'Administrator::editUser/$1');
+
+// ADMIN
 $routes->get('/admin/dashboard', 'Administrator::dashboardAdmin', ['filter' => 'authadmin']);
+
+// USER
 $routes->get('/user/dashboard', 'Report::index', ['filter' => 'authuser']);
-$routes->get('/login', 'Home::login');
 $routes->get('/user/report/meeting/detail/(:any)','Report::meeting/detail/$1', ['filter' => 'authuser']);
 $routes->get('/user/report/meeting/edit/(:any)', 'Report::meeting/edit/$1', ['filter' => 'authuser']);
 $routes->get('/user/report/meeting', 'Report::meeting/index', ['filter' => 'authuser']);
@@ -49,8 +57,16 @@ $routes->get('/user/report/case','Report::case/index', ['filter' => 'authuser'])
 $routes->get('/user/report/case/save', 'Report::case/save', ['filter' => 'authuser']);
 $routes->get('/user/report/case/edit/(:segment)', 'Report::case/edit/$1', ['filter' => 'authuser']);
 $routes->get('/user/report/case/detail/(:any)', 'Report::case/detail/$1', ['filter' => 'authuser']);
-$routes->get('/user/report/personelsCategory', 'Report::personelsCategory/index', ['filter' => 'authuser']);
-$routes->get('/user/report/personelsCategory/edit/(:segment)', 'Report::personelsCategory/edit/$1', ['filter' => 'authuser']);
+$routes->get('/user/licensing/personelsCategory', 'Report::personelsCategory/index', ['filter' => 'authuser']);
+$routes->get('/user/licensing/personelsCategory/edit/(:segment)', 'Report::personelsCategory/edit/$1', ['filter' => 'authuser']);
+$routes->get('/user/perizinan/izinKeluar', 'Perizinan::izinKeluar/index', ['filter' => 'authuser']);
+$routes->get('/user/perizinan/izinKeluar/edit/(:segment)', 'Perizinan::izinKeluar/edit/$1', ['filter' => 'authuser']);
+$routes->get('/user/perizinan/izinPulang', 'Perizinan::izinPulang/index', ['filter' => 'authuser']);
+$routes->get('/user/perizinan/izinPulang/edit/(:segment)', 'Perizinan::izinPulang/edit/$1', ['filter' => 'authuser']);
+$routes->get('/user/perizinan/personilTerlambat', 'Perizinan::personilTerlambat/index', ['filter' => 'authuser']);
+$routes->get('/user/perizinan/personilTerlambat/edit/(:segment)', 'Perizinan::personilTerlambat/edit/$1', ['filter' => 'authuser']);
+
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing

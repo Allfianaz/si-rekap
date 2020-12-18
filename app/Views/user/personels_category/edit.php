@@ -12,7 +12,7 @@
         <div class="title_right">
             <div class="col-m form-group pull-right">
                 <div class="input-group">
-                    <a href="/user/report/personelsCategory" class="btn btn-warning float-right"><i class="fa fa-backward"></i> Back</a>
+                    <a href="/user/licensing/personelsCategory" class="btn btn-warning float-right"><i class="fa fa-backward"></i> Back</a>
                     <span class="input-group-btn">
                         <!-- <button class="btn btn-default" type="button">Go!</button> -->
                     </span>

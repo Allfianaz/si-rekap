@@ -7,7 +7,7 @@ class M_Case extends Model
 {
     protected $table = 'pelanggaran';
     protected $primaryKey = 'id_pelanggaran';
-    protected $allowedFields = ['nama_pelanggar', 'jk_pelanggar', 'tanggal_pelanggaran', 'keterangan_pelanggaran', 'divisi_pelanggar', 'nip_pelanggar', 'status'];
+    protected $allowedFields = ['nama_pelanggar', 'jk_pelanggar', 'tanggal_pelanggaran', 'keterangan_pelanggaran', 'divisi_pelanggar', 'nip_pelanggar', 'status', 'status_kepegawaian'];
 
     public function getData($id = false)
     {

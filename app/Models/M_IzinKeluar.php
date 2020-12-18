@@ -3,16 +3,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class M_Perizinan extends Model
+class M_IzinKeluar extends Model
 {
-    protected $table = 'perizinan';
+    protected $table = 'izin_keluar';
     protected $primaryKey = 'id_perizinan';
-    protected $allowedFields = ['jenis_personil', 'nama_personil_izin', 'waktu_perizinan'];
+    protected $allowedFields = ['jenis_personil','tanggal_izin' ,'nip_personil', 'nama_personil_izin', 'jam_keluar', 'jam_masuk', 'keterangan_izin', 'divisi_personil'];
 
     public function getData($id = false)
     {
         if($id === false){
-            return $this->orderBy('waktu_perizinan', 'ASC')->findAll();
+            return $this->orderBy('tanggal_izin', 'DESC')->findAll();
         } else {
             return $this->where(['id_perizinan' => $id])->first();
         }

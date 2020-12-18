@@ -2,7 +2,6 @@
 <?= $this->section('content') ?>
 
 <script src="<?= base_url() ?>/ckeditor/ckeditor.js"></script>
-
 <div class="page-title">
     <div class="title_left">
         <div class="swal" data-swal="<?= session()->get('message'); ?>"></div>
@@ -19,11 +18,10 @@
 
 <div class="clearfix"></div>
 
-<!-- LIST DATA -->
 <div class="col-md-12 col-sm-12  ">
     <div class="x_panel">
         <div class="x_title">
-            <h2>Case Report <small>List</small></h2>
+            <h2><?= $header ?><small>List</small></h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -46,14 +44,13 @@
                     <thead>
                         <tr class="headings">
                             <th class="column-title">No </th>
-                            <th class="column-title">Date </th>
+                            <th class="column-title">Tanggal </th>
                             <th class="column-title">NIP </th>
-                            <th class="column-title">Name </th>
-                            <th class="column-title">Employment Status </th>
-                            <th class="column-title">Gender </th>
-                            <th class="column-title">Work Division </th>
-                            <th class="column-title">Case Status </th>
-                            <th class="column-title">Case Detail </th>
+                            <th class="column-title">Nama </th>
+                            <th class="column-title">Divisi </th>
+                            <th class="column-title">Status Pegawai </th>
+                            <th class="column-title">Jam Pulang </th>
+                            <th class="column-title">Keterangan </th>
                             <th class="column-title no-link last"><span class="nobr">Action</span>
                             </th>
                         </tr>
@@ -62,47 +59,39 @@
                     <tbody>
                         <?php
                         $no = 1;
-                        foreach ($case as $cs) {
+                        foreach ($licensing as $lcs) {
                         ?>
                             <tr>
                                 <td class=" "><?= $no++ ?></td>
-                                <td class=" "><?= $cs['tanggal_pelanggaran']; ?></td>
-                                <td class=" "><?= $cs['nip_pelanggar']; ?></td>
-                                <td class=" "><?= $cs['nama_pelanggar']; ?></td>
-                                <td class=" "><a data-toggle="tooltip" data-placement="left" title="<?php if ($cs['status_kepegawaian'] == 'PKWT') {
+                                <td class=" "><?= $lcs['tanggal_izin']; ?></td>
+                                <td class=" "><?= $lcs['nip_personil']; ?></td>
+                                <td class=" "><?= $lcs['nama_personil_izin']; ?></td>
+                                <td class=" "><?= $lcs['divisi_personil']; ?></td>
+                                <td class=" "><a data-toggle="tooltip" data-placement="left" title="<?php if ($lcs['jenis_personil'] == 'PKWT') {
                                                                                                         echo 'Perjanjian Kontrak Waktu Tertentu';
-                                                                                                    } elseif ($cs['status_kepegawaian'] == 'PKWTT') {
+                                                                                                    } elseif ($lcs['jenis_personil'] == 'PKWTT') {
                                                                                                         echo 'Perjanjian Kontrak Waktu Tidak Tertentu';
-                                                                                                    } elseif ($cs['status_kepegawaian'] == 'SUBKONT') {
+                                                                                                    } elseif ($lcs['jenis_personil'] == 'SUBKONT') {
                                                                                                         echo 'Outsourcing';
-                                                                                                    } ?>" class="btn btn-sm <?php if ($cs['status_kepegawaian'] == 'PKWT') {
+                                                                                                    } ?>" class="btn btn-sm <?php if ($lcs['jenis_personil'] == 'PKWT') {
                                                                                                                                 echo 'btn-success';
-                                                                                                                            } elseif ($cs['status_kepegawaian'] == 'PKWTT') {
+                                                                                                                            } elseif ($lcs['jenis_personil'] == 'PKWTT') {
                                                                                                                                 echo 'btn-warning';
-                                                                                                                            } elseif ($cs['status_kepegawaian'] == 'SUBKONT') {
+                                                                                                                            } elseif ($lcs['jenis_personil'] == 'SUBKONT') {
                                                                                                                                 echo 'btn-danger';
                                                                                                                             } else {
                                                                                                                                 echo 'btn-secondary';
                                                                                                                             } ?>">
-                                        <h4><strong><?= $cs['status_kepegawaian']; ?></strong></h4>
+                                        <h4><strong><?= $lcs['jenis_personil']; ?></strong></h4>
                                     </a></td>
-                                <td class=" "><?= $cs['jk_pelanggar']; ?></td>
-                                <td class=" "><?= $cs['divisi_pelanggar']; ?></td>
-                                <td class=""><span class="badge <?php if ($cs['status'] == 'Serious') {
-                                                                    echo 'badge-danger';
-                                                                } elseif ($cs['status'] == 'Moderate') {
-                                                                    echo 'badge-warning';
-                                                                } elseif ($cs['status'] == 'Ordinary') {
-                                                                    echo 'badge-success';
-                                                                } ?>"><?= $cs['status']; ?></span>
-                                </td>
-                                <td class=" last"><a href="/user/report/case/detail/<?= $cs['id_pelanggaran']; ?>">Detail</a>
+                                <td class=" "><?= $lcs['jam_pulang']; ?></td>
+                                <td class=" "><?= $lcs['keterangan_izin']; ?></td>
                                 </td>
                                 <td>
                                     <div class="">
-                                        <a href="/user/report/case/edit/<?= $cs['id_pelanggaran']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
-                                        <?= csrf_field(); ?>
-                                        <a href="/report/case/delete/<?= $cs['id_pelanggaran']; ?>" class="btn btn-danger btn-sm fa fa-trash btn-delete" type="submit"></a>
+                                        <a href="/user/perizinan/izinPulang/edit/<?= $lcs['id_perizinan']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
+
+                                        <a href="/perizinan/izinPulang/delete/<?= $lcs['id_perizinan']; ?>" class="btn btn-danger btn-sm fa fa-trash btn-delete" type="submit"></a>
                                     </div>
                                 </td>
                             </tr>
@@ -112,11 +101,9 @@
             </div>
         </div>
     </div>
-
-    <!-- ADD FORM  -->
     <div class="x_panel">
         <div class="x_title">
-            <h2>Case Report <small>Add Data</small></h2>
+            <h2><?= $header ?><small>Add Data</small></h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -129,11 +116,11 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <form class="" action="/report/case/save" method="post">
+            <form class="" action="/perizinan/izinPulang/save" method="post">
                 <div class="field item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3  label-align">Date<span class="required">*</span></label>
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">Tanggal<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">
-                        <input class="form-control date <?= ($validation->hasError('tanggal')) ? 'is-invalid' : ''; ?>" type="date" name="tanggal" />
+                        <input class="form-control date <?= ($validation->hasError('tanggal')) ? 'is-invalid' : ''; ?>" type="date" name="tanggal" value="<?= old('tanggal') ?>" />
                         <div class="invalid-feedback position-sticky">
                             <?= $validation->getError('tanggal'); ?>
                         </div>
@@ -142,55 +129,23 @@
                 <div class="field item form-group">
                     <label class="col-form-label col-md-3 col-sm-3  label-align">NIP<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">
-                        <input class="form-control time <?= ($validation->hasError('nip')) ? 'is-invalid' : ''; ?>" type="text" name="nip" data-inputmask="'mask': '999-99-99999'" />
+                        <input class="form-control time <?= ($validation->hasError('nip')) ? 'is-invalid' : ''; ?>" type="text" name="nip" data-inputmask="'mask': '999-99-99999'" value="<?= old('nip'); ?>" />
                         <div class="invalid-feedback position-sticky">
                             <?= $validation->getError('nip'); ?>
                         </div>
                     </div>
                 </div>
                 <div class="field item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3  label-align">Name<span class="required">*</span></label>
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">Nama<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">
-                        <input class="form-control <?= ($validation->hasError('name')) ? 'is-invalid' : ''; ?>" type="text" name="name" />
+                        <input class="form-control <?= ($validation->hasError('nama')) ? 'is-invalid' : ''; ?>" type="text" name="nama" value="<?= old('nama'); ?>" />
                         <div class="invalid-feedback position-sticky">
-                            <?= $validation->getError('name'); ?>
+                            <?= $validation->getError('nama'); ?>
                         </div>
                     </div>
                 </div>
                 <div class="field item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Employment Status<span class="required">*</span></label>
-                    <div class="col-md-6 col-sm-6">
-                        <select class="form-control <?= ($validation->hasError('status_karyawan')) ? 'is-invalid' : ''; ?>" name="status_karyawan">
-                            <option value=""><b>-- Choose Emploment Status --</b></option>
-                            <?php foreach ($status as $st) { ?>
-                                <option value="<?php echo $st['jenis_personil']; ?>"><?php echo $st['jenis_personil']; ?></option>
-                            <?php } ?>
-                        </select>
-                        <div class="invalid-feedback position-sticky">
-                            <?= $validation->getError('status_karyawan'); ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="field item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3  label-align">Gender<span class="required">*</span></label>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="Male" id="optionsRadios1" name="kelamin"> Male
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="Female" id="optionsRadios2" name="kelamin"> Female
-                            </label>
-                        </div>
-                        <div class="invalid-feedback position-sticky">
-                            <?= $validation->getError('kelamin'); ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="field item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Work Division<span class="required">*</span></label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">Divisi<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">
                         <select class="form-control <?= ($validation->hasError('divisi')) ? 'is-invalid' : ''; ?>" name="divisi">
                             <option value=""><b>-- Choose Division --</b></option>
@@ -204,23 +159,32 @@
                     </div>
                 </div>
                 <div class="field item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3  label-align">Status<span class="required">*</span></label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">Status Pegwawai<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">
-                        <select class="form-control <?= ($validation->hasError('status')) ? 'is-invalid' : ''; ?>" name="status">
-                            <option value="">-- Choose status --</option>
-                            <option value="Serious">Serious</option>
-                            <option value="Moderate">Moderate</option>
-                            <option value="Ordinary">Ordinary</option>
+                        <select class="form-control <?= ($validation->hasError('status_karyawan')) ? 'is-invalid' : ''; ?>" name="status_karyawan">
+                            <option value=""><b>-- Choose Emploment Status --</b></option>
+                            <?php foreach ($status as $st) { ?>
+                                <option value="<?php echo $st['jenis_personil']; ?>"><?php echo $st['jenis_personil']; ?></option>
+                            <?php } ?>
                         </select>
                         <div class="invalid-feedback position-sticky">
-                            <?= $validation->getError('status'); ?>
+                            <?= $validation->getError('status_karyawan'); ?>
                         </div>
                     </div>
                 </div>
                 <div class="field item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Case Detail<span class="required">*</span></label>
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">Jam Keluar<span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6">
+                        <input class="form-control time <?= ($validation->hasError('jam_pulang')) ? 'is-invalid' : ''; ?>" type="time" name="jam_pulang" value="<?= old('jam_pulang') ?>" />
+                        <div class="invalid-feedback position-sticky">
+                            <?= $validation->getError('jam_pulang'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">Keterangan<span class="required">*</span></label>
                     <div class="col-md-9 col-sm-9">
-                        <textarea name="keterangan" id="keterangan" cols="30" rows="10"><?= old('keterangan'); ?></textarea>
+                        <textarea name="keterangan" id="materi" cols="30" rows="10"><?= old('keterangan'); ?></textarea>
                         <div class="invalid-feedback position-sticky">
                             <?= $validation->getError('keterangan'); ?>
                         </div>
@@ -239,10 +203,10 @@
     </div>
 </div>
 
-<script>
-    CKEDITOR.replace('keterangan', {
+<!-- <script>
+    CKEDITOR.replace('materi', {
         width: '100%',
         height: 400
     });
-</script>
+</script> -->
 <?= $this->endSection() ?>

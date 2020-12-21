@@ -235,3 +235,7 @@
 <script src="<?= base_url() ?>/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
 <!-- jQuery autocomplete -->
 <script src="<?= base_url() ?>/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+<!-- FullCalendar -->
+<script src="<?= base_url() ?>/vendors/moment/min/moment.min.js"></script>
+<script src="<?= base_url() ?>/vendors/fullcalendar-new/lib/main.js"></script>
+<script src="<?= base_url() ?>/vendors/fullcalendar-new/calendarScript.js"></script>

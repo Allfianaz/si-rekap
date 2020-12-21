@@ -48,4 +48,6 @@
     <!-- starrr -->
     <link href="<?= base_url() ?>/vendors/starrr/dist/starrr.css" rel="stylesheet">
     <!-- bootstrap-wysiwyg -->
-	<link href="<?= base_url() ?>/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <link href="<?= base_url() ?>/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <!-- FullCalendar -->
+    <link href="<?= base_url() ?>/vendors/fullcalendar-new/lib/main.css" rel="stylesheet">

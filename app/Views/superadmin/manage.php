@@ -36,7 +36,7 @@
                     <a href="/superadmin/manage/editAdmin/<?= $adm['id_admin']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
                     <!-- <form action="/administrator/deleteAdmin/<?= $adm['id_admin']; ?>" method="post" class="d-inline btn-delete"> -->
                     <?= csrf_field(); ?>
-                    <a href="/administrator/manage/deleteAdmin/<?= $adm['id_admin']; ?>" class="btn btn-danger btn-sm fa fa-trash btn-delete" type="submit"></a>
+                    <a href="/administrator/deleteAdmin/<?= $adm['id_admin']; ?>" class="btn btn-danger btn-sm fa fa-trash btn-delete" type="submit"></a>
                     <!-- </form> -->
                   </div>
                 </p>

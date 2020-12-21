@@ -7,6 +7,9 @@ use App\Models\M_Case;
 use App\Models\M_Divisi;
 use App\Models\M_JenisPersonil;
 use App\Models\M_IzinKeluar;
+use App\Models\M_Sweeping;
+use App\Models\M_Patroli;
+use App\Models\M_MeetingKategori;
 
 class Report extends BaseController
 {
@@ -17,6 +20,9 @@ class Report extends BaseController
         $this->M_Divisi = new M_Divisi();
         $this->M_JenisPersonil = new M_JenisPersonil();
         $this->M_IzinKeluar = new M_IzinKeluar();
+        $this->M_Sweeping = new M_Sweeping();
+        $this->M_Patroli = new M_Patroli();
+        $this->M_MeetingKategori = new M_MeetingKategori();
         helper('url', 'form');
     }
 
@@ -54,6 +60,12 @@ class Report extends BaseController
                     'rules' => 'required',
                     'errors' => [
                         'required' => 'Please set ending time of meeting'
+                    ]
+                ],
+                'kategori' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please set the meeting category'
                     ]
                 ],
                 'tempat' => [
@@ -96,7 +108,8 @@ class Report extends BaseController
                 'tempat_meeting' => $this->request->getVar('tempat'),
                 'pimpinan_meeting' => $this->request->getVar('pimpinan'),
                 'jumlah_orang_meeting' => $orang . ' Audience(s)',
-                'materi_meeting' => $this->request->getVar('materi')
+                'materi_meeting' => $this->request->getVar('materi'),
+                'kategori_meeting' => $this->request->getVar('kategori')
             );
 
             session()->setFlashdata('message', 'Data Successfully added to Meeting Report');
@@ -137,6 +150,7 @@ class Report extends BaseController
                 'title' => 'Meeting Report | Edit Data',
                 'validation' => \Config\Services::validation(),
                 'report' => $this->M_Meeting->getData($id),
+                'kategori' => $this->M_MeetingKategori->getData(),
                 'start' => $start,
                 'end' => $end,
                 'orang' => $newOrang
@@ -171,6 +185,12 @@ class Report extends BaseController
                         'required' => 'Please input this field'
                     ]
                 ],
+                'kategori' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please set the meeting category'
+                    ]
+                ],
                 'pimpinan' => [
                     'rules' => 'required',
                     'errors' => [
@@ -203,7 +223,8 @@ class Report extends BaseController
                 'tempat_meeting' => $this->request->getVar('tempat'),
                 'pimpinan_meeting' => $this->request->getVar('pimpinan'),
                 'jumlah_orang_meeting' => $orang . ' Audience(s)',
-                'materi_meeting' => $this->request->getVar('materi')
+                'materi_meeting' => $this->request->getVar('materi'),
+                'kategori_meeting' => $this->request->getVar('kategori')
             );
 
             session()->setFlashdata('message', 'Data Successfully Updated');
@@ -214,8 +235,9 @@ class Report extends BaseController
             // MEETING DASHBOARD 
         } elseif ($url == 'index' && $id == null) {
             $data = [
-                'title' => 'Report Meeting | Main Dashboard',
+                'title' => 'Meeting Report | Main Dashboard',
                 'meeting' => $this->M_Meeting->getData(),
+                'kategori' => $this->M_MeetingKategori->getData(),
                 'validation' => \Config\Services::validation()
             ];
 
@@ -223,8 +245,7 @@ class Report extends BaseController
         }
     }
 
-    public function
-    case($url = 'index', $id = null)
+    public function case($url = 'index', $id = null)
     {
         // CASE DASHBOARD 
         if ($url == 'index') {
@@ -498,6 +519,254 @@ class Report extends BaseController
 
             $this->M_JenisPersonil->updateData($data, $id);
             return redirect()->to('/user/licensing/personelsCategory');
+        }
+    }
+
+    public function sweeping($url = 'index', $id = null)
+    {
+        // SWEEPING, SAVE DATA
+        if ($url == 'save') {
+            if (!$this->validate([
+                'tanggal' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Input your report date'
+                    ]
+                ],
+                'waktu' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please set sweeping hours'
+                    ]
+                ],
+                'tempat' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please input this field'
+                    ]
+                ],
+                'keterangan' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please input sweeping detai'
+                    ]
+                ]
+            ])) {
+                return redirect()->to('/user/report/sweeping')->withInput();
+            }
+
+            $data = array(
+                'id_laporan_swp' => 'Swp' . date('dmY') . rand(111, 999),
+                'waktu_laporan_swp' => $this->request->getVar('waktu'),
+                'tanggal_laporan_swp' => $this->request->getVar('tanggal'),
+                'tempat_swp' => $this->request->getVar('tempat'),
+                'keterangan_swp' => $this->request->getVar('keterangan'),
+            );
+
+            session()->setFlashdata('message', 'Data Successfully added to Sweeping Report');
+
+            $this->M_Sweeping->saveData($data);
+            return redirect()->to('/user/report/sweeping');
+
+            // SWEEPING, DELETE DATA
+        } elseif ($url == 'delete' && $id != null) {
+            $this->M_Sweeping->delete($id);
+
+            session()->setFlashdata('message', 'Data Successfully Deleted');
+            return redirect()->to('/user/report/meeting');
+
+            // SWEEPING, DETAIL DATA
+        } elseif ($url == 'detail' && $id != null) {
+            $data = [
+                'title' => 'Sweeping Detail',
+                'header' => 'Sweeping Detail',
+                'report' => $this->M_Sweeping->getData($id)
+            ];
+            return view('user/sweeping/detail', $data);
+
+            // SWEEPING, EDIT DATA
+        } elseif ($url == 'edit' && $id != null) {
+
+            $data = [
+                'title' => 'Sweeping Report | Edit Data',
+                'header' => 'Sweeping',
+                'validation' => \Config\Services::validation(),
+                'report' => $this->M_Sweeping->getData($id),
+            ];
+            return view('user/sweeping/edit', $data);
+
+            // SWEEPING, UPDATE DATA
+        } elseif ($url == 'update' && $id != null) {
+            if (!$this->validate([
+                'tanggal' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Input your report date'
+                    ]
+                ],
+                'waktu' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please set sweeping hours'
+                    ]
+                ],
+                'tempat' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please input this field'
+                    ]
+                ],
+                'keterangan' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please input sweeping detail'
+                    ]
+                ]
+            ])) {
+                return redirect()->to('/user/report/sweeping/edit/' . $id)->withInput();
+            }
+
+            $data = array(
+                'waktu_laporan_swp' => $this->request->getVar('waktu'),
+                'tanggal_laporan_swp' => $this->request->getVar('tanggal'),
+                'tempat_swp' => $this->request->getVar('tempat'),
+                'keterangan_swp' => $this->request->getVar('keterangan'),
+            );
+
+            session()->setFlashdata('message', 'Data Successfully Updated');
+
+            $this->M_Sweeping->updateData($data, $id);
+            return redirect()->to('/user/report/sweeping');
+
+            // SWEEPING DASHBOARD 
+        } elseif ($url == 'index' && $id == null) {
+            $data = [
+                'title' => 'Sweeping Report | Main Dashboard',
+                'header' => 'Sweeping Report',
+                'sweeping' => $this->M_Sweeping->getData(),
+                'validation' => \Config\Services::validation()
+            ];
+            // dd($data);
+
+            return view('user/sweeping/dashboard', $data);
+        }
+    }
+    
+    public function patrol($url = 'index', $id = null)
+    {
+        // PATROLI, SAVE DATA
+        if ($url == 'save') {
+            if (!$this->validate([
+                'tanggal' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Input your report date'
+                    ]
+                ],
+                'waktu' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please set patrol hours'
+                    ]
+                ],
+                'keterangan' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please input patrol detai'
+                    ]
+                ]
+            ])) {
+                return redirect()->to('/user/report/patrol')->withInput();
+            }
+
+            $data = array(
+                'id_laporan_patroli' => 'Ptr' . date('dmY') . rand(111, 999),
+                'jam_patroli' => $this->request->getVar('waktu'),
+                'tanggal_patroli' => $this->request->getVar('tanggal'),
+                'keterangan_patroli' => $this->request->getVar('keterangan'),
+                'wilayah_patroli' => $this->request->getVar('tempat'),
+            );
+
+            session()->setFlashdata('message', 'Data Successfully added to Patrol Report');
+
+            $this->M_Patroli->saveData($data);
+            return redirect()->to('/user/report/patrol');
+
+            // PATROLI, DELETE DATA
+        } elseif ($url == 'delete' && $id != null) {
+            $this->M_Patroli->delete($id);
+
+            session()->setFlashdata('message', 'Data Successfully Deleted');
+            return redirect()->to('/user/report/patrol');
+
+            // PATROLI, DETAIL DATA
+        } elseif ($url == 'detail' && $id != null) {
+            $data = [
+                'title' => 'Patrol Detail',
+                'header' => 'Patrol Detail',
+                'report' => $this->M_Patroli->getData($id)
+            ];
+            return view('user/patrol/detail', $data);
+
+            // PATROLI, EDIT DATA
+        } elseif ($url == 'edit' && $id != null) {
+
+            $data = [
+                'title' => 'Patrol Report | Edit Data',
+                'header' => 'Patrol',
+                'validation' => \Config\Services::validation(),
+                'report' => $this->M_Patroli->getData($id),
+            ];
+            return view('user/patrol/edit', $data);
+
+            // PATROLI, UPDATE DATA
+        } elseif ($url == 'update' && $id != null) {
+            if (!$this->validate([
+                'tanggal' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Input your report date'
+                    ]
+                ],
+                'waktu' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please set sweeping hours'
+                    ]
+                ],
+                'keterangan' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Please input sweeping detail'
+                    ]
+                ]
+            ])) {
+                return redirect()->to('/user/report/patrol/edit/' . $id)->withInput();
+            }
+
+            $data = array(
+                'waktu_patroli' => $this->request->getVar('waktu'),
+                'tanggal_patroli' => $this->request->getVar('tanggal'),
+                'keterangan_patroli' => $this->request->getVar('keterangan'),
+                'wilayah_patroli' => $this->request->getVar('tempat'),
+            );
+
+            session()->setFlashdata('message', 'Data Successfully Updated');
+
+            $this->M_Patroli->updateData($data, $id);
+            return redirect()->to('/user/report/patroli');
+
+            // PATROLI DASHBOARD 
+        } elseif ($url == 'index' && $id == null) {
+            $data = [
+                'title' => 'Patrol Report | Main Dashboard',
+                'header' => 'Patrol Report',
+                'patrol' => $this->M_Patroli->getData(),
+                'validation' => \Config\Services::validation()
+            ];
+            // dd($data);
+
+            return view('user/patrol/dashboard', $data);
         }
     }
 }

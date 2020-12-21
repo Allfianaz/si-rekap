@@ -57,6 +57,13 @@ $routes->get('/user/report/case','Report::case/index', ['filter' => 'authuser'])
 $routes->get('/user/report/case/save', 'Report::case/save', ['filter' => 'authuser']);
 $routes->get('/user/report/case/edit/(:segment)', 'Report::case/edit/$1', ['filter' => 'authuser']);
 $routes->get('/user/report/case/detail/(:any)', 'Report::case/detail/$1', ['filter' => 'authuser']);
+$routes->get('/user/report/sweeping','Report::sweeping/index', ['filter' => 'authuser']);
+$routes->get('/user/report/sweeping/detail/(:any)', 'Report::sweeping/detail/$1', ['filter' => 'authuser']);
+$routes->get('/user/report/sweeping/edit/(:any)', 'Report::sweeping/edit/$1', ['filter' => 'authuser']);
+$routes->get('/user/report/patrol','Report::patrol/index', ['filter' => 'authuser']);
+$routes->get('/user/report/patrol/detail/(:any)','Report::patrol/detail/$1', ['filter' => 'authuser']);
+$routes->get('/user/report/patrol/edit/(:any)','Report::patrol/edit/$1', ['filter' => 'authuser']);
+
 $routes->get('/user/licensing/personelsCategory', 'Report::personelsCategory/index', ['filter' => 'authuser']);
 $routes->get('/user/licensing/personelsCategory/edit/(:segment)', 'Report::personelsCategory/edit/$1', ['filter' => 'authuser']);
 $routes->get('/user/perizinan/izinKeluar', 'Perizinan::izinKeluar/index', ['filter' => 'authuser']);

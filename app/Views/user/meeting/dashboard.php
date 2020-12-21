@@ -44,6 +44,7 @@
                     <thead>
                         <tr class="headings">
                             <th class="column-title">No </th>
+                            <th class="column-title">Meeting Category </th>
                             <th class="column-title">Date </th>
                             <th class="column-title">Meeting Hours </th>
                             <th class="column-title">Location </th>
@@ -62,6 +63,7 @@
                         ?>
                             <tr>
                                 <td class=" "><?= $no++ ?></td>
+                                <td class=" "><?= $mtg['kategori_meeting']; ?></td>
                                 <td class=" "><?= $mtg['tanggal_meeting']; ?></td>
                                 <td class=" "><?= $mtg['jam_meeting']; ?></td>
                                 <td class=" "><?= $mtg['tempat_meeting']; ?></td>
@@ -72,7 +74,7 @@
                                 <td>
                                     <div class="">
                                         <a href="/user/report/meeting/edit/<?= $mtg['id_meeting']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
-                                        
+
                                         <a href="/report/meeting/delete/<?= $mtg['id_meeting']; ?>" class="btn btn-danger btn-sm fa fa-trash btn-delete" type="submit"></a>
                                     </div>
                                 </td>
@@ -99,6 +101,20 @@
         </div>
         <div class="x_content">
             <form class="" action="/report/meeting/save" method="post">
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting Category<span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6">
+                        <select class="form-control <?= ($validation->hasError('kategori')) ? 'is-invalid' : ''; ?>" name="kategori">
+                            <option value=""><b>-- Choose Category --</b></option>
+                            <?php foreach ($kategori as $ktg) { ?>
+                                <option value="<?php echo $ktg['nama_kategori_meeting']; ?>"><?php echo $ktg['nama_kategori_meeting']; ?></option>
+                            <?php } ?>
+                        </select>
+                        <div class="invalid-feedback position-sticky">
+                            <?= $validation->getError('kategori'); ?>
+                        </div>
+                    </div>
+                </div>
                 <div class="field item form-group">
                     <label class="col-form-label col-md-3 col-sm-3  label-align">Date<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">

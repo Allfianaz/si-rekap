@@ -50,6 +50,8 @@
               <ul class="nav child_menu">
                 <li class="<?= $request->uri->getSegment(3) == 'meeting' ? 'current-page' : '' ?>"><a href="/user/report/meeting">Meeting</a></li>
                 <li class="<?= $request->uri->getSegment(3) == 'case' ? 'current-page' : '' ?>"><a href="/user/report/case">Cases & Violence</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'sweeping' ? 'current-page' : '' ?>"><a href="/user/report/sweeping">Sweeping</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'patrol' ? 'current-page' : '' ?>"><a href="/user/report/patrol">Patrol</a></li>
               </ul>
             </li>
             <li class="<?= $request->uri->getSegment(2) == 'perizinan' ? 'active' : '' ?>"><a><i class="fa fa-file-text"></i>Perizinan<span class="fa fa-chevron-down"></span></a>
@@ -70,10 +72,10 @@
             <li class="active"><a><i class="fa fa-home"></i>Dashboard <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li class="current-page"><a href="">Home</a></li>
-                <li class="current-page"><a href="#">Laporan Harian</a></li>
+                <!-- <li class="current-page"><a href="#">Laporan Harian</a></li>
                 <li><a href="#">Laporan Mingguan</a></li>
                 <li><a href="#">Laporan Bulanan</a></li>
-                <li><a href="#">Laporan Tahunan</a></li>
+                <li><a href="#">Laporan Tahunan</a></li> -->
               </ul>
           </ul>
           <!-- /Menu User -->

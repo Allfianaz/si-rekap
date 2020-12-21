@@ -41,9 +41,23 @@
                 <div class="x_content">
                     <form class="" action="/report/meeting/update/<?= $report['id_meeting']; ?>" method="post" enctype="multipart/form-data">
                         <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Meeting Category<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6">
+                                <select class="form-control <?= ($validation->hasError('kategori')) ? 'is-invalid' : ''; ?>" name="kategori">
+                                    <option><b><?= $report['kategori_meeting'] ?></b></option>
+                                    <?php foreach ($kategori as $ktg) { ?>
+                                        <option value="<?php echo $ktg['nama_kategori_meeting']; ?>"><?php echo $ktg['nama_kategori_meeting']; ?></option>
+                                    <?php } ?>
+                                </select>
+                                <div class="invalid-feedback position-sticky">
+                                    <?= $validation->getError('kategori'); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align">Date<span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6">
-                                <input class="form-control date <?= ($validation->hasError('tanggal')) ? 'is-invalid' : ''; ?>" value="<?= $report['tanggal_meeting']; ?>" type="date" name="tanggal"/>
+                                <input class="form-control date <?= ($validation->hasError('tanggal')) ? 'is-invalid' : ''; ?>" value="<?= $report['tanggal_meeting']; ?>" type="date" name="tanggal" />
                                 <div class="invalid-feedback position-sticky">
                                     <?= $validation->getError('tanggal'); ?>
                                 </div>
@@ -52,7 +66,7 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align">Start<span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6">
-                                <input class="form-control time <?= ($validation->hasError('start')) ? 'is-invalid' : ''; ?>" value="<?= $start ?>" type="time" name="start"/>
+                                <input class="form-control time <?= ($validation->hasError('start')) ? 'is-invalid' : ''; ?>" value="<?= $start ?>" type="time" name="start" />
                                 <div class="invalid-feedback position-sticky">
                                     <?= $validation->getError('start'); ?>
                                 </div>
@@ -61,7 +75,7 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align">End<span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6">
-                                <input class="form-control time <?= ($validation->hasError('end')) ? 'is-invalid' : ''; ?>" value="<?= $end ?>" type="time" name="end"/>
+                                <input class="form-control time <?= ($validation->hasError('end')) ? 'is-invalid' : ''; ?>" value="<?= $end ?>" type="time" name="end" />
                                 <div class="invalid-feedback position-sticky">
                                     <?= $validation->getError('end'); ?>
                                 </div>

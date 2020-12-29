@@ -3,20 +3,20 @@
 namespace App\Controllers;
 
 use App\Models\M_IzinKeluar;
-use App\Models\M_Divisi;
-use App\Models\M_JenisPersonil;
 use App\Models\M_IzinPulang;
 use App\Models\M_PersonilTerlambat;
+use App\Models\M_Divisi;
+use App\Models\M_JenisPersonil;
 
 class Perizinan extends BaseController
 {
     public function __construct()
     {
         $this->M_IzinKeluar = new M_IzinKeluar();
+        $this->M_PersonilTerlambat = new M_PersonilTerlambat();
+        $this->M_IzinPulang = new M_IzinPulang();
         $this->M_Divisi = new M_Divisi();
         $this->M_JenisPersonil = new M_JenisPersonil();
-        $this->M_IzinPulang = new M_IzinPulang();
-        $this->M_PersonilTerlambat = new M_PersonilTerlambat();
         helper('url', 'form');
     }
 

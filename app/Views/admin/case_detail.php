@@ -5,13 +5,13 @@
 <div class="page-title">
     <div class="title_left">
         <div class="swal" data-swal="<?= session()->get('message'); ?>"></div>
-        <h3><?= $header?></h3>
+        <h3>Case Detail</h3>
     </div>
 
     <div class="title_right">
         <div class="col-m form-group pull-right">
             <div class="input-group">
-                <a href="/user/report/patrol" class="btn btn-warning float-right"><i class="fa fa-backward"></i> Back</a>
+                <a href="/administrator/reportDate" class="btn btn-warning float-right"><i class="fa fa-backward"></i> Back</a>
 
             </div>
         </div>
@@ -23,7 +23,13 @@
 <div class="col-md-12 col-sm-12  ">
     <div class="x_panel">
         <div class="x_title">
-            <h2><?= $report['wilayah_patroli']; ?><small><?= $report['tanggal_patroli']; ?><small><?= $report['jam_patroli']; ?></small></small></h2>
+            <h2><?= $report['nama_pelanggar']; ?><small><?= $report['tanggal_pelanggaran']; ?></small></h2><i class="badge <?php if ($report['status'] == 'Serious') {
+                                                                                                                                echo 'badge-danger';
+                                                                                                                            } elseif ($report['status'] == 'Moderate') {
+                                                                                                                                echo 'badge-warning';
+                                                                                                                            } elseif ($report['status'] == 'Ordinary') {
+                                                                                                                                echo 'badge-success';
+                                                                                                                            } ?>"><?= $report['status']; ?></i>
             <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -39,18 +45,18 @@
             </ul>
             <div class="clearfix"></div>
         </div>
-        
+
         <div class="x_content">
             <div class="col-md-12">
-            <textarea disabled name="keterangan" id="keterangan"><?= $report['keterangan_patroli']; ?></textarea>
+                <textarea disabled name="materi" id="materi"><?= $report['keterangan_pelanggaran']; ?></textarea>
             </div>
         </div>
     </div>
 </div>
 <script>
-    CKEDITOR.replace('keterangan', {
-      width: '100%',
-      height: 1000
+    CKEDITOR.replace('materi', {
+        width: '100%',
+        height: 1000
     });
 </script>
 

@@ -30,4 +30,10 @@ class M_Sweeping extends Model
         $query =  $this->db->table($this->table)->update($data, ['id_laporan_swp' => $id]);
         return $query;
     }
+
+    public function getByDate($date)
+    {
+        $query = $this->where(['tanggal_laporan_swp' => $date])->findAll();
+        return $query;
+    }
 }

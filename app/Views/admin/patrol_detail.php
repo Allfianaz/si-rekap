@@ -5,13 +5,13 @@
 <div class="page-title">
     <div class="title_left">
         <div class="swal" data-swal="<?= session()->get('message'); ?>"></div>
-        <h3><?= $header?></h3>
+        <h3><?= $header ?></h3>
     </div>
 
     <div class="title_right">
         <div class="col-m form-group pull-right">
             <div class="input-group">
-                <a href="/user/report/patrol" class="btn btn-warning float-right"><i class="fa fa-backward"></i> Back</a>
+                <a href="/administrator/reportDate" class="btn btn-warning float-right"><i class="fa fa-backward"></i> Back</a>
 
             </div>
         </div>
@@ -39,18 +39,18 @@
             </ul>
             <div class="clearfix"></div>
         </div>
-        
+
         <div class="x_content">
             <div class="col-md-12">
-            <textarea disabled name="keterangan" id="keterangan"><?= $report['keterangan_patroli']; ?></textarea>
+                <textarea disabled name="keterangan" id="keterangan"><?= $report['keterangan_patroli']; ?></textarea>
             </div>
         </div>
     </div>
 </div>
 <script>
     CKEDITOR.replace('keterangan', {
-      width: '100%',
-      height: 1000
+        width: '100%',
+        height: 1000
     });
 </script>
 

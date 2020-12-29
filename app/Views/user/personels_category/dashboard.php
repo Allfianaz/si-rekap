@@ -68,7 +68,9 @@
                                         <h4><strong><?= $ctg['jenis_personil']; ?></strong></h4>
                                     </a>
                                 </td>
-                                <td class=" "><h3><strong><?= $ctg['keterangan_jenis']; ?></strong></h3></td>
+                                <td class=" ">
+                                    <h3><strong><?= $ctg['keterangan_jenis']; ?></strong></h3>
+                                </td>
                                 <td>
                                     <div class="">
                                         <a href="/user/licensing/personelsCategory/edit/<?= $ctg['id_jenis_personil']; ?>" class="btn btn-primary btn-sm fa fa-edit"></a>
@@ -117,12 +119,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="ln_solid">
-                    <div class="form-group">
-                        <div class="col-md-6 offset-md-3">
-                            <button type='submit' class="btn btn-primary">Submit</button>
-                            <button type='reset' class="btn btn-success">Reset</button>
-                        </div>
+                <div class="form-group">
+                    <div class="col-md-6 offset-md-3">
+                        <button type='submit' class="btn btn-primary">Submit</button>
+                        <button type='reset' class="btn btn-success">Reset</button>
                     </div>
                 </div>
             </form>

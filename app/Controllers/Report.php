@@ -4,11 +4,10 @@ namespace App\Controllers;
 
 use App\Models\M_Meeting;
 use App\Models\M_Case;
-use App\Models\M_Divisi;
-use App\Models\M_JenisPersonil;
-use App\Models\M_IzinKeluar;
 use App\Models\M_Sweeping;
 use App\Models\M_Patroli;
+use App\Models\M_JenisPersonil;
+use App\Models\M_Divisi;
 use App\Models\M_MeetingKategori;
 
 class Report extends BaseController
@@ -17,11 +16,10 @@ class Report extends BaseController
     {
         $this->M_Meeting = new M_Meeting();
         $this->M_Case = new M_Case();
-        $this->M_Divisi = new M_Divisi();
-        $this->M_JenisPersonil = new M_JenisPersonil();
-        $this->M_IzinKeluar = new M_IzinKeluar();
         $this->M_Sweeping = new M_Sweeping();
         $this->M_Patroli = new M_Patroli();
+        $this->M_JenisPersonil = new M_JenisPersonil();
+        $this->M_Divisi = new M_Divisi();
         $this->M_MeetingKategori = new M_MeetingKategori();
         helper('url', 'form');
     }
@@ -745,7 +743,7 @@ class Report extends BaseController
             }
 
             $data = array(
-                'waktu_patroli' => $this->request->getVar('waktu'),
+                'jam_patroli' => $this->request->getVar('waktu'),
                 'tanggal_patroli' => $this->request->getVar('tanggal'),
                 'keterangan_patroli' => $this->request->getVar('keterangan'),
                 'wilayah_patroli' => $this->request->getVar('tempat'),
@@ -754,7 +752,7 @@ class Report extends BaseController
             session()->setFlashdata('message', 'Data Successfully Updated');
 
             $this->M_Patroli->updateData($data, $id);
-            return redirect()->to('/user/report/patroli');
+            return redirect()->to('/user/report/patrol');
 
             // PATROLI DASHBOARD 
         } elseif ($url == 'index' && $id == null) {
@@ -769,4 +767,15 @@ class Report extends BaseController
             return view('user/patrol/dashboard', $data);
         }
     }
+
+    public function detail($date)
+    {
+        $data = [
+            'title' => 'Administrator | Data Detail',
+            'report' => $this->M_Case->getByDate($date)
+        ];
+
+        return view('admin/detail', $data);
+    }
+
 }

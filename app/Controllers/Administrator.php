@@ -5,6 +5,13 @@ namespace App\Controllers;
 use App\Models\AdminModel;
 use App\Models\UserModel;
 use App\Models\SuperAdmin;
+use App\Models\M_Meeting;
+use App\Models\M_Case;
+use App\Models\M_IzinKeluar;
+use App\Models\M_Sweeping;
+use App\Models\M_Patroli;
+use App\Models\M_IzinPulang;
+use App\Models\M_PersonilTerlambat;
 
 class Administrator extends BaseController
 {
@@ -13,6 +20,13 @@ class Administrator extends BaseController
         $this->AdminModel = new AdminModel();
         $this->UserModel = new UserModel();
         $this->SuperAdmin = new SuperAdmin();
+        $this->M_Meeting = new M_Meeting();
+        $this->M_Case = new M_Case();
+        $this->M_IzinKeluar = new M_IzinKeluar();
+        $this->M_Sweeping = new M_Sweeping();
+        $this->M_Patroli = new M_Patroli();
+        $this->M_PersonilTerlambat = new M_PersonilTerlambat();
+        $this->M_IzinPulang = new M_IzinPulang();
         helper('url', 'form');
     }
 
@@ -39,16 +53,6 @@ class Administrator extends BaseController
         // dd($data);
         return view('superadmin/manage', $data);
     }
-
-    public function dashboardAdmin()
-    {
-
-        $data = [
-            'title' => 'Administrator | Dashboard',
-        ];
-        return view('admin/dashboard', $data);
-    }
-
 
     public function saveAdmin()
     {
@@ -426,7 +430,7 @@ class Administrator extends BaseController
     {
         $oldPassword = $this->AdminModel->getAdmin($id);
         $inputPassword = $this->request->getVar('inputPassword');
-        if($oldPassword['password_admin'] == $inputPassword){
+        if ($oldPassword['password_admin'] == $inputPassword) {
             $rule_pass = 'required';
         } else {
             $rule_pass = 'required|matches[admin.password_admin]';
@@ -473,7 +477,7 @@ class Administrator extends BaseController
     {
         $oldPassword = $this->UserModel->getUser($id);
         $inputPassword = $this->request->getVar('inputPassword');
-        if($oldPassword['password_user'] == $inputPassword){
+        if ($oldPassword['password_user'] == $inputPassword) {
             $rule_pass = 'required';
         } else {
             $rule_pass = 'required|matches[user.password_user]';
@@ -516,4 +520,84 @@ class Administrator extends BaseController
         return redirect()->to('/superadmin/manage');
     }
 
+    public function dashboardAdmin()
+    {
+        $data = [
+            'validation' => \Config\Services::validation(),
+            'title' => 'Admin | Dashboard',
+            'case' => $this->M_Case->getData(),
+            'i_keluar' => $this->M_IzinKeluar->getData(),
+            'i_pulang' => $this->M_IzinPulang->getData(),
+            'meeting' => $this->M_Meeting->getData(),
+            'i_pulang' => $this->M_IzinPulang->getData(),
+            'patroli' => $this->M_Patroli->getData(),
+            'p_terlambat' => $this->M_PersonilTerlambat->getData(),
+            'sweeping' => $this->M_Sweeping->getData(),
+        ];
+        // dd($data);
+
+        return view('admin/dashboard', $data);
+    }
+
+    public function reportDate()
+    {
+        $date = $this->request->getVar('tanggal');
+
+        $data = [
+            'date' => $date,
+            'title' => 'Report Detail ' . $date,
+            'validation' => \Config\Services::validation(),
+            'case' => $this->M_Case->getByDate($date),
+            'i_keluar' => $this->M_IzinKeluar->getByDate($date),
+            'i_pulang' => $this->M_IzinPulang->getByDate($date),
+            'meeting' => $this->M_Meeting->getByDate($date),
+            'i_pulang' => $this->M_IzinPulang->getByDate($date),
+            'patroli' => $this->M_Patroli->getByDate($date),
+            'p_terlambat' => $this->M_PersonilTerlambat->getByDate($date),
+            'sweeping' => $this->M_Sweeping->getByDate($date)
+        ];
+        // dd($data);
+
+        return view('admin/bd_report', $data);
+    }
+
+    public function detail($url = 'meeting', $id = null)
+    {
+        // MEETING DETAIL
+        if ($url == 'meeting' && $id != null) {
+            $data = [
+                'title' => 'Meeting Detail',
+                'report' => $this->M_Meeting->getData($id)
+            ];
+
+            return view('admin/meeting_detail', $data);
+
+            // CASE DETAIL
+        } elseif ($url == 'case' && $id != null) {
+            $data = [
+                'title' => 'Case Detail',
+                'report' => $this->M_Case->getData($id)
+            ];
+
+            return view('admin/case_detail', $data);
+
+            // SWEEPING DETAIL
+        } elseif ($url == 'sweeping' && $id != null) {
+            $data = [
+                'title' => 'Sweeping Detail',
+                'report' => $this->M_Sweeping->getData($id)
+            ];
+
+            return view('admin/sweeping_detail', $data);
+
+            // PATROL DETAIL
+        } elseif ($url == 'patrol' && $id != null) {
+            $data = [
+                'title' => 'Patrol Detail',
+                'report' => $this->M_Patroli->getData($id)
+            ];
+
+            return view('admin/patrol_detail', $data);
+        }
+    }
 }

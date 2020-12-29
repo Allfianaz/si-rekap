@@ -30,4 +30,15 @@ class M_Patroli extends Model
         $query =  $this->db->table($this->table)->update($data, ['id_laporan_patroli' => $id]);
         return $query;
     }
+
+    public function getByDate($date)
+    {
+        $query = $this->where(['tanggal_patroli' => $date])->findAll();
+        $row = count($query);
+        if ($row != 0) {
+            return $query;
+        }
+
+        return false;
+    }
 }

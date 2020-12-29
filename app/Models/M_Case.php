@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -11,7 +12,7 @@ class M_Case extends Model
 
     public function getData($id = false)
     {
-        if($id === false){
+        if ($id === false) {
             return $this->orderBy('tanggal_pelanggaran', 'ASC')->findAll();
         } else {
             return $this->where(['id_pelanggaran' => $id])->first();
@@ -28,5 +29,16 @@ class M_Case extends Model
     {
         $query = $this->db->table($this->table)->update($data, ['id_pelanggaran' => $id]);
         return $query;
+    }
+
+    public function getByDate($date)
+    {
+        $query = $this->where(['tanggal_pelanggaran' => $date])->findAll();
+        $row = count($query);
+        if ($row != 0) {
+            return $query;
+        }
+
+        return false;
     }
 }

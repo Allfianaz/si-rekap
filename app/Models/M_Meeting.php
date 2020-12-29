@@ -30,4 +30,24 @@ class M_Meeting extends Model
         $query =  $this->db->table($this->table)->update($data, ['id_meeting' => $id]);
         return $query;
     }
+
+    public function getByDate($date)
+    {
+        $query = $this->where(['tanggal_meeting' => $date])->findAll();
+        $row = count($query);
+        if ($row != 0) {
+            return $query;
+        }
+
+        return false;
+    }
+
+    public function getByRangeOfDate($start, $end)
+    {
+        $this->where('tanggal_meeting >= ', $start);
+        $this->where('tanggal_meeting <= ', $end);
+
+        $query = 'tanggal meeting BETWEEN "start" AND "end"';
+        $this->where($query);
+    }
 }

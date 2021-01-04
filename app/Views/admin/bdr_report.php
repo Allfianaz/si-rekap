@@ -34,11 +34,17 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <form class="" action="/administrator/reportDate" method="post">
+            <form class="" action="/administrator/reportRangeOfDate" method="post">
                 <div class="field item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3  label-align">Date<span class="required">*</span></label>
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">From<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">
-                        <input class="form-control date" type="date" name="tanggal" value="<?= $date ?>" />
+                        <input class="form-control date" type="date" name="start" value="<?= $start ?>" />
+                    </div>
+                </div>
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">To<span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6">
+                        <input class="form-control date" type="date" name="end" value="<?= $end ?>" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -54,7 +60,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Meeting Report <small><?= $date ?></small> </h2>
+                    <h2>Meeting Report <small><?= $start ?> - <?= $end ?></small> </h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -110,7 +116,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Case Report <small><?= $date ?></small> </h2>
+                    <h2>Case Report <small><?= $start ?> - <?= $end ?></small> </h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -172,7 +178,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Sweeping Report <small><?= $date ?></small> </h2>
+                    <h2>Sweeping Report <small><?= $start ?> - <?= $end ?></small> </h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -228,7 +234,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Patrol Report <small><?= $date ?></small> </h2>
+                    <h2>Patrol Report <small><?= $start ?> - <?= $end ?></small> </h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -284,7 +290,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Izin Keluar <small><?= $date ?></small></h2>
+                    <h2>Izin Keluar <small><?= $start ?> - <?= $end ?></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -371,7 +377,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Izin Pulang <small><?= $date ?></small></h2>
+                    <h2>Izin Pulang <small><?= $start ?> - <?= $end ?></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -456,7 +462,7 @@
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Personil Terlambat <small><?= $date ?></small></h2>
+                    <h2>Personil Terlambat <small><?= $start ?> - <?= $end ?></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>

@@ -51,6 +51,32 @@
                     </div>
                 </div>
             </form>
+            <form class="" action="/administrator/reportRangeOfDate" method="post">
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">Date<span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6">
+                        <input class="form-control date <?= ($validation->hasError('start')) ? 'is-invalid' : ''; ?>" type="date" name="start" />
+                        <div class="invalid-feedback position-sticky">
+                            <?= $validation->getError('start'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="field item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3  label-align">Date<span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6">
+                        <input class="form-control date <?= ($validation->hasError('end')) ? 'is-invalid' : ''; ?>" type="date" name="end" />
+                        <div class="invalid-feedback position-sticky">
+                            <?= $validation->getError('end'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 offset-md-3">
+                        <button type='submit' class="btn btn-primary">Submit</button>
+                        <button type='reset' class="btn btn-success">Reset</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -561,6 +561,30 @@ class Administrator extends BaseController
         return view('admin/bd_report', $data);
     }
 
+    public function reportRangeOfDate()
+    {
+        $start = $this->request->getVar('start');
+        $end = $this->request->getVar('end');
+
+        $data = [
+            'start' => $start,
+            'end' => $end,
+            'title' => 'Report By Range of Date',
+            'validation' => \Config\Services::validation(),
+            'case' => $this->M_Case->getByRangeOfDate($start, $end),
+            'i_keluar' => $this->M_IzinKeluar->getByRangeOfDate($start, $end),
+            'i_pulang' => $this->M_IzinPulang->getByRangeOfDate($start, $end),
+            'meeting' => $this->M_Meeting->getByRangeOfDate($start, $end),
+            'i_pulang' => $this->M_IzinPulang->getByRangeOfDate($start, $end),
+            'patroli' => $this->M_Patroli->getByRangeOfDate($start, $end),
+            'p_terlambat' => $this->M_PersonilTerlambat->getByRangeOfDate($start, $end),
+            'sweeping' => $this->M_Sweeping->getByRangeOfDate($start, $end)
+        ];
+        // dd($data);
+
+        return view('admin/bdr_report', $data);
+    }
+
     public function detail($url = 'meeting', $id = null)
     {
         // MEETING DETAIL

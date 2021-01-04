@@ -46,8 +46,7 @@ class M_Meeting extends Model
     {
         $this->where('tanggal_meeting >= ', $start);
         $this->where('tanggal_meeting <= ', $end);
-
-        $query = 'tanggal meeting BETWEEN "start" AND "end"';
-        $this->where($query);
+        $query = $this->findAll();
+        return $query;
     }
 }

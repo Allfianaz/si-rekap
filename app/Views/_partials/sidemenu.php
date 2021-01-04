@@ -71,7 +71,9 @@
           <ul class="nav side-menu">
             <li class="active"><a><i class="fa fa-home"></i>Dashboard <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li class="current-page"><a href="/admin/dashboard">Report By Date</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'index' ? 'current-page' : '';?>"><a href="/admin/dashboard/">Home</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'reportDate' ? 'current-page' : '';?>"><a href="/administrator/reportDate">Report By Date</a></li>
+                <li class="<?= $request->uri->getSegment(3) == 'reportRangeOfDate' ? 'current-page' : '';?>"><a href="/administrator/reportRangeOfDate">Report By Range of Date</a></li>
                 <!-- <li class="current-page"><a href="#">Laporan Harian</a></li>
                 <li><a href="#">Laporan Mingguan</a></li>
                 <li><a href="#">Laporan Bulanan</a></li>

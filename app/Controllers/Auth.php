@@ -77,7 +77,7 @@ class Auth extends BaseController
                 $session->set($ses_data);
                 $session->setFlashData('notif', 'Login Success');
 
-                return redirect()->to('/admin/dashboard');
+                return redirect()->to('/admin/dashboard/');
             } else {
                 $session->setFlashData('message', 'Wrong Password');
                 return redirect()->to('/login');

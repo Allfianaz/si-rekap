@@ -41,4 +41,12 @@ class M_Patroli extends Model
 
         return false;
     }
+
+    public function getByRangeOfDate($start, $end)
+    {
+        $this->where('tanggal_patroli >= ', $start);
+        $this->where('tanggal_patroli <= ', $end);
+        $query = $this->findAll();
+        return $query;
+    }
 }

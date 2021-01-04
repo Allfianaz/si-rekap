@@ -34,6 +34,23 @@ class M_Sweeping extends Model
     public function getByDate($date)
     {
         $query = $this->where(['tanggal_laporan_swp' => $date])->findAll();
-        return $query;
+        $row = count($query);
+        if ($row != 0) {
+            return $query;
+        }
+
+        return false;
+    }
+
+    public function getByRangeOfDate($start, $end)
+    {
+        $this->where('tanggal_laporan_swp >= ', $start);
+        $this->where('tanggal_laporan_swp <= ', $end);
+        $query = $this->findAll();
+        $row = count($query);
+        if ($row != 0) {
+            return $query;
+        }
+        return false;
     }
 }

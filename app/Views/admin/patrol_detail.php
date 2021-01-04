@@ -5,7 +5,7 @@
 <div class="page-title">
     <div class="title_left">
         <div class="swal" data-swal="<?= session()->get('message'); ?>"></div>
-        <h3><?= $header ?></h3>
+        <h3>Patrol Detail</h3>
     </div>
 
     <div class="title_right">

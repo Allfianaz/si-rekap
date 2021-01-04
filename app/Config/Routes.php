@@ -49,8 +49,11 @@ $routes->get('/superadmin/manage/editUser/(:any)', 'Administrator::editUser/$1')
 // ADMIN
 $routes->get('/admin/dashboard', 'Administrator::dashboardAdmin', ['filter' => 'authadmin']);
 $routes->get('/admin/dashboard/reportDate', 'Administrator::reportDate', ['filter' => 'authadmin']);
+$routes->get('/admin/dashboard/reportRangeDate', 'Administrator::reportRangeOfDate', ['filter' => 'authadmin']);
 $routes->get('/admin/dashboard/reportDate/Meetingdetail/(:any)', 'Administrator::detail/meeting/$1', ['filter' => 'authadmin']);
 $routes->get('/admin/dashboard/reportDate/Casedetail/(:any)', 'Administrator::detail/case/$1', ['filter' => 'authadmin']);
+$routes->get('/admin/dashboard/reportDate/Sweepingdetail/(:any)', 'Administrator::detail/sweeping/$1', ['filter' => 'authadmin']);
+$routes->get('/admin/dashboard/reportDate/Patroldetail/(:any)', 'Administrator::detail/patrol/$1', ['filter' => 'authadmin']);
 
 // USER
 $routes->get('/user/dashboard', 'Report::index', ['filter' => 'authuser']);

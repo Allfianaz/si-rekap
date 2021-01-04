@@ -41,4 +41,12 @@ class M_PersonilTerlambat extends Model
 
         return false;
     }
+
+    public function getByRangeOfDate($start, $end)
+    {
+        $this->where('tanggal_izin >= ', $start);
+        $this->where('tanggal_izin <= ', $end);
+        $query = $this->findAll();
+        return $query;
+    }
 }

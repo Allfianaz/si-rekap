@@ -41,4 +41,12 @@ class M_Case extends Model
 
         return false;
     }
+
+    public function getByRangeOfDate($start, $end)
+    {
+        $this->where('tanggal_pelanggaran >= ', $start);
+        $this->where('tanggal_pelanggaran <= ', $end);
+        $query = $this->findAll();
+        return $query;
+    }
 }
